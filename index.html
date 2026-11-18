@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090914">
+  <meta name="description" content="Nexus Collective: un ecosistema independiente de proyectos, comunidades y herramientas digitales conectadas por una misma visión.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nexus Collective · Ideas que conectan">
+  <meta property="og:description" content="Proyectos independientes. Comunidades propias. Un ecosistema en común.">
+  <meta property="og:url" content="https://nexuscollective.app/">
+  <title>Nexus Collective · Ideas que conectan</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090914;
+      --surface: #111120;
+      --surface-2: #171629;
+      --line: rgba(190, 174, 255, .15);
+      --line-strong: rgba(190, 174, 255, .28);
+      --text: #f4f0ff;
+      --muted: #aaa5c0;
+      --subtle: #77728e;
+      --violet: #a78bfa;
+      --violet-bright: #c4b5fd;
+      --cyan: #8ce5dc;
+      --radius: 22px;
+      --max: 1160px;
+      --header-height: 78px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 51% -16%, rgba(115,82,214,.22), transparent 42rem),
+        radial-gradient(ellipse at 94% 44%, rgba(65,159,166,.07), transparent 32rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .15;
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+    a { color: inherit; }
+    button { color: inherit; font: inherit; cursor: pointer; }
+    .shell { width: min(var(--max), calc(100% - 48px)); margin-inline: auto; }
+    .skip-link { position: absolute; top: 8px; left: 8px; z-index: 20; padding: 9px 13px; border-radius: 9px; color: #171126; background: var(--cyan); transform: translateY(-160%); }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* Navigation */
+    .site-header {
+      position: sticky; top: 0; z-index: 10;
+      border-bottom: 1px solid rgba(190,174,255,.09);
+      background: rgba(9,9,20,.76);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .topbar { min-height: var(--header-height); display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; flex: 0 0 auto; text-decoration: none; }
+    .brand-mark {
+      display: grid; width: 39px; height: 39px; place-items: center;
+      border: 1px solid rgba(196,181,253,.38); border-radius: 13px;
+      background: linear-gradient(145deg, rgba(167,139,250,.22), rgba(140,229,220,.08));
+      box-shadow: 0 0 28px rgba(139,92,246,.13), inset 0 1px rgba(255,255,255,.08);
+    }
+    .brand-mark svg { width: 24px; height: 24px; }
+    .brand-name { font-size: 12px; font-weight: 820; letter-spacing: .15em; white-space: nowrap; }
+    .brand-name span { color: var(--muted); font-weight: 560; }
+    .main-nav { display: flex; align-items: center; gap: clamp(15px, 2.1vw, 27px); }
+    .nav-link { color: var(--muted); font-size: 12px; font-weight: 650; text-decoration: none; transition: color .2s ease; white-space: nowrap; }
+    .nav-link:hover, .nav-link:focus-visible { color: var(--text); }
+    .nav-divider { width: 1px; height: 21px; background: var(--line-strong); }
+    .nav-link.external { display: inline-flex; align-items: center; gap: 6px; }
+    .nav-link.external svg { width: 12px; height: 12px; color: #9c91bb; }
+    .nav-cta { display: inline-flex; align-items: center; justify-content: center; min-height: 39px; padding: 0 14px; border: 1px solid rgba(196,181,253,.28); border-radius: 11px; color: #e9e3ff; background: rgba(167,139,250,.09); font-size: 11px; font-weight: 760; text-decoration: none; transition: background .2s ease, transform .2s ease; white-space: nowrap; }
+    .nav-cta:hover { transform: translateY(-1px); background: rgba(167,139,250,.16); }
+    .menu-toggle { display: none; width: 41px; height: 41px; place-items: center; border: 1px solid var(--line); border-radius: 11px; background: rgba(255,255,255,.035); }
+    .menu-toggle svg { width: 20px; height: 20px; }
+
+    /* Hero */
+    .hero { position: relative; display: grid; min-height: 680px; align-items: center; padding: 90px 0 104px; isolation: isolate; }
+    .hero-layout { display: grid; grid-template-columns: 1.04fr .96fr; align-items: center; gap: 54px; }
+    .hero-copy { position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 23px; padding: 8px 13px; color: #c7b9f4; border: 1px solid rgba(167,139,250,.22); border-radius: 999px; background: rgba(26,21,45,.72); font-size: 10px; font-weight: 780; letter-spacing: .15em; text-transform: uppercase; }
+    .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+    h1 { max-width: 720px; margin: 0; font-size: clamp(52px, 7.1vw, 88px); line-height: .99; letter-spacing: -.078em; font-weight: 850; }
+    h1 .gradient { display: block; padding-bottom: .08em; color: transparent; background: linear-gradient(100deg, #eee9ff 5%, #c5b3ff 48%, #91e2dc 100%); background-clip: text; -webkit-background-clip: text; }
+    .hero-description { max-width: 570px; margin: 23px 0 0; color: var(--muted); font-size: clamp(15px, 1.6vw, 17px); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 30px; }
+    .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 9px; padding: 0 18px; border: 1px solid transparent; border-radius: 13px; font-size: 12px; font-weight: 780; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #171126; background: linear-gradient(105deg, #c4b5fd, #a5e8df); box-shadow: 0 8px 30px rgba(167,139,250,.19); }
+    .button-primary:hover { box-shadow: 0 12px 34px rgba(167,139,250,.3); }
+    .button-secondary { color: var(--text); border-color: var(--line-strong); background: rgba(255,255,255,.035); }
+    .button-secondary:hover { border-color: rgba(196,181,253,.55); background: rgba(167,139,250,.08); }
+    .button svg { width: 16px; height: 16px; }
+    .hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; margin-top: 44px; color: var(--subtle); font-size: 10px; font-weight: 730; letter-spacing: .1em; text-transform: uppercase; }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 7px; }
+    .hero-meta strong { color: #ddd4fa; font-size: 13px; letter-spacing: 0; }
+    .meta-dot { width: 3px; height: 3px; border-radius: 50%; background: #625b7c; }
+
+    /* Orbital artwork */
+    .visual-wrap { position: relative; min-height: 440px; display: grid; place-items: center; isolation: isolate; }
+    .visual-glow { position: absolute; width: min(440px, 100%); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(128,94,214,.2), rgba(69,120,137,.07) 43%, transparent 70%); filter: blur(8px); }
+    .orbit { position: absolute; width: min(400px, 92%); aspect-ratio: 1; border: 1px solid rgba(167,139,250,.16); border-radius: 50%; transform: rotate(-24deg) scaleY(.55); box-shadow: 0 0 50px rgba(124,83,220,.07); }
+    .orbit.orbit-two { width: min(350px, 80%); border-color: rgba(140,229,220,.17); transform: rotate(52deg) scaleY(.65); }
+    .orbit.orbit-three { width: min(300px, 68%); border-color: rgba(196,181,253,.12); transform: rotate(105deg) scaleY(.72); }
+    .orbit-node { position: absolute; width: 11px; height: 11px; border: 2px solid #c4b5fd; border-radius: 50%; background: #a78bfa; box-shadow: 0 0 20px rgba(167,139,250,.8); }
+    .node-one { top: 21%; left: 22%; }
+    .node-two { top: 31%; right: 12%; width: 8px; height: 8px; border-color: #a5e8df; background: #8ce5dc; box-shadow: 0 0 20px rgba(140,229,220,.8); }
+    .node-three { bottom: 19%; left: 27%; width: 7px; height: 7px; }
+    .core-card { position: relative; z-index: 2; display: grid; width: min(300px, 72%); aspect-ratio: 1 / 1.04; place-items: center; border: 1px solid rgba(196,181,253,.27); border-radius: 36px; background: linear-gradient(145deg, rgba(31,28,55,.94), rgba(13,19,31,.96)); box-shadow: 0 25px 95px rgba(0,0,0,.35), inset 0 1px rgba(255,255,255,.08), 0 0 70px rgba(130,94,215,.13); transform: rotate(-5deg); }
+    .core-card::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(196,181,253,.11); border-radius: 27px; }
+    .core-inner { position: relative; display: grid; justify-items: center; gap: 14px; transform: rotate(5deg); }
+    .core-symbol { display: grid; width: 112px; height: 112px; place-items: center; border: 1px solid rgba(196,181,253,.38); border-radius: 31px; background: linear-gradient(145deg, rgba(167,139,250,.25), rgba(140,229,220,.1)); box-shadow: 0 0 48px rgba(139,92,246,.18), inset 0 1px rgba(255,255,255,.1); }
+    .core-symbol svg { width: 65px; height: 65px; }
+    .core-label { color: #e7e0fa; font-size: 11px; font-weight: 850; letter-spacing: .24em; }
+    .core-sub { color: #9289ab; font-size: 9px; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
+    .floating-label { position: absolute; z-index: 3; display: flex; align-items: center; gap: 9px; padding: 10px 13px; border: 1px solid rgba(190,174,255,.18); border-radius: 13px; background: rgba(17,17,32,.88); box-shadow: 0 12px 35px rgba(0,0,0,.23); backdrop-filter: blur(12px); }
+    .floating-label svg { width: 17px; height: 17px; color: var(--cyan); }
+    .floating-label span { color: #d9d2ec; font-size: 10px; font-weight: 750; }
+    .float-chat { right: 0; top: 19%; }
+    .float-community { left: -1%; bottom: 20%; }
+
+    /* Common sections */
+    .section { padding: 62px 0 78px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 26px; margin-bottom: 25px; }
+    .section-kicker { margin: 0 0 8px; color: #b5a3f4; font-size: 10px; font-weight: 820; letter-spacing: .17em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(28px, 4vw, 39px); line-height: 1.1; letter-spacing: -.055em; }
+    .section-description { max-width: 450px; margin: 0; color: var(--muted); font-size: 13px; }
+
+    /* Destinations */
+    .destination-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .destination-card { position: relative; display: flex; min-height: 286px; flex-direction: column; align-items: flex-start; overflow: hidden; padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, rgba(27,25,48,.94), rgba(15,15,29,.97)); box-shadow: 0 18px 65px rgba(0,0,0,.16); text-decoration: none; transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+    .destination-card:hover { transform: translateY(-4px); border-color: rgba(196,181,253,.38); box-shadow: 0 24px 70px rgba(0,0,0,.25); }
+    .destination-card::before { content: ""; position: absolute; top: -115px; right: -90px; width: 290px; height: 290px; border: 1px solid rgba(167,139,250,.13); border-radius: 50%; box-shadow: 0 0 0 30px rgba(167,139,250,.025), 0 0 0 62px rgba(167,139,250,.018); pointer-events: none; }
+    .destination-card.chat::before { border-color: rgba(140,229,220,.13); }
+    .card-top { position: relative; z-index: 1; display: flex; width: 100%; justify-content: space-between; align-items: start; gap: 15px; }
+    .card-icon { display: grid; width: 56px; height: 56px; place-items: center; border: 1px solid rgba(196,181,253,.34); border-radius: 17px; color: #e9e1ff; background: linear-gradient(140deg, rgba(167,139,250,.24), rgba(140,229,220,.09)); box-shadow: inset 0 1px rgba(255,255,255,.09); }
+    .chat .card-icon { border-color: rgba(140,229,220,.3); background: linear-gradient(140deg, rgba(140,229,220,.18), rgba(167,139,250,.1)); }
+    .card-icon svg { width: 26px; height: 26px; }
+    .card-chip { padding: 6px 9px; border: 1px solid rgba(140,229,220,.2); border-radius: 999px; color: #9de4da; background: rgba(85,184,169,.07); font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .destination-card h3 { position: relative; z-index: 1; margin: 24px 0 7px; font-size: 24px; letter-spacing: -.05em; }
+    .destination-card p { position: relative; z-index: 1; max-width: 470px; margin: 0; color: var(--muted); font-size: 13px; }
+    .card-link { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; margin-top: auto; padding-top: 25px; color: #d3c7fb; font-size: 11px; font-weight: 780; }
+    .chat .card-link { color: #a5e8df; }
+    .card-link svg { width: 15px; height: 15px; transition: transform .2s ease; }
+    .destination-card:hover .card-link svg { transform: translate(3px,-2px); }
+
+    /* Philosophy */
+    .manifesto { display: grid; grid-template-columns: .95fr 1.05fr; gap: 48px; padding: 37px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(120deg, rgba(21,20,39,.95), rgba(13,19,30,.9)); }
+    .manifesto h2 { max-width: 420px; }
+    .manifesto-lead { margin: 15px 0 0; color: var(--muted); font-size: 13px; }
+    .principles { display: grid; gap: 17px; }
+    .principle { display: grid; grid-template-columns: 36px 1fr; gap: 13px; align-items: start; }
+    .principle-number { display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid var(--line); border-radius: 10px; color: #c5b5fa; font-size: 10px; font-weight: 850; }
+    .principle h3 { margin: 1px 0 4px; font-size: 13px; }
+    .principle p { margin: 0; color: var(--muted); font-size: 11px; }
+
+    /* Callout */
+    .join-panel { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 25px; overflow: hidden; margin-top: 18px; padding: 30px 33px; border: 1px solid rgba(167,139,250,.27); border-radius: var(--radius); background: linear-gradient(105deg, rgba(82,57,145,.2), rgba(45,93,98,.13)); }
+    .join-panel::after { content: ""; position: absolute; right: 14%; top: -100px; width: 250px; height: 250px; border: 1px solid rgba(196,181,253,.13); border-radius: 50%; box-shadow: 0 0 0 26px rgba(196,181,253,.025); pointer-events: none; }
+    .join-panel h2 { position: relative; z-index: 1; font-size: clamp(23px, 3vw, 31px); }
+    .join-panel p { position: relative; z-index: 1; margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+    .join-panel .button { position: relative; z-index: 1; flex: 0 0 auto; }
+
+    /* Footer */
+    footer { margin-top: 40px; border-top: 1px solid rgba(190,174,255,.1); background: rgba(5,5,13,.22); }
+    .footer-main { display: grid; grid-template-columns: 1.4fr .8fr .8fr; gap: 40px; padding: 45px 0 37px; }
+    .footer-about { max-width: 330px; }
+    .footer-about .brand { margin-bottom: 14px; }
+    .footer-about p { margin: 0; color: var(--subtle); font-size: 11px; }
+    .footer-column h3 { margin: 3px 0 13px; color: #d9d1ed; font-size: 10px; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    .footer-links { display: grid; gap: 9px; }
+    .footer-links a { width: fit-content; color: var(--muted); font-size: 11px; text-decoration: none; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding: 17px 0 22px; border-top: 1px solid rgba(190,174,255,.08); color: var(--subtle); font-size: 10px; }
+    .footer-bottom strong { color: #d0c4ed; font-weight: 760; }
+
+    @media (max-width: 900px) {
+      .main-nav { gap: 13px; }
+      .nav-link { font-size: 11px; }
+      .hero-layout { gap: 25px; }
+      .visual-wrap { min-height: 390px; }
+      .manifesto { gap: 30px; }
+    }
+    @media (max-width: 760px) {
+      :root { --header-height: 68px; }
+      .shell { width: min(var(--max), calc(100% - 34px)); }
+      .topbar { min-height: var(--header-height); }
+      .menu-toggle { display: grid; }
+      .main-nav { position: absolute; top: calc(100% + 1px); left: 0; right: 0; display: none; align-items: stretch; flex-direction: column; gap: 0; padding: 9px 17px 17px; border-bottom: 1px solid var(--line); background: rgba(9,9,20,.97); box-shadow: 0 20px 35px rgba(0,0,0,.22); }
+      .main-nav.open { display: flex; }
+      .nav-link { padding: 12px 5px; font-size: 13px; }
+      .nav-divider { width: 100%; height: 1px; margin: 5px 0; }
+      .nav-cta { margin-top: 8px; min-height: 43px; }
+      .hero { min-height: unset; padding: 73px 0 67px; }
+      .hero-layout { grid-template-columns: 1fr; gap: 15px; }
+      .hero-copy { text-align: center; }
+      .hero-description { margin-inline: auto; }
+      .hero-actions, .hero-meta { justify-content: center; }
+      .visual-wrap { min-height: 350px; margin-top: 0; }
+      .section { padding: 48px 0 58px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 12px; }
+      .manifesto { grid-template-columns: 1fr; gap: 25px; padding: 26px; }
+      .join-panel { align-items: start; flex-direction: column; padding: 25px; }
+      .join-panel .button { width: 100%; }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .footer-about { grid-column: 1 / -1; }
+    }
+    @media (max-width: 520px) {
+      .brand-name { font-size: 10px; letter-spacing: .13em; }
+      .hero { padding-top: 62px; }
+      h1 { font-size: clamp(48px, 13vw, 66px); }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .hero-actions .button { width: 100%; }
+      .hero-meta { gap: 10px; font-size: 9px; }
+      .visual-wrap { min-height: 305px; }
+      .core-card { width: min(245px, 72%); border-radius: 29px; }
+      .core-symbol { width: 90px; height: 90px; border-radius: 25px; }
+      .core-symbol svg { width: 53px; height: 53px; }
+      .floating-label { padding: 8px 10px; }
+      .floating-label span { font-size: 9px; }
+      .float-chat { right: -2px; top: 17%; }
+      .float-community { left: -2px; bottom: 16%; }
+      .destination-grid { grid-template-columns: 1fr; }
+      .destination-card { min-height: 260px; padding: 23px; }
+      .section-heading h2 { font-size: 31px; }
+      .manifesto { padding: 23px; }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 22px 15px; }
+      .footer-bottom { flex-direction: column; gap: 5px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="shell topbar">
+      <a class="brand" href="#top" aria-label="Nexus Collective, inicio">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 17V7l8 10V7l8 10V7" stroke="#d9ceff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="#8ce5dc" stroke-width="1.5" stroke-linecap="round" opacity=".85"/></svg>
+        </span>
+        <span class="brand-name">NEXUS <span>COLLECTIVE</span></span>
+      </a>
+
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+        <a class="nav-link" href="#top">Inicio</a>
+        <a class="nav-link" href="#ecosystem">Ecosistema</a>
+        <a class="nav-link" href="#about">Quiénes somos</a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a class="nav-link external" href="https://chat.nexuscollective.app/" target="_blank" rel="noopener noreferrer">Nexus Chat <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="nav-link external" href="https://coallition.nexuscollective.app/" target="_blank" rel="noopener noreferrer">Coallition <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 5h5v5M19 5l-9 9M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="nav-cta" href="https://chat.nexuscollective.app/" target="_blank" rel="noopener noreferrer">Entrar en Nexus <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="shell hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> Un ecosistema independiente</p>
+          <h1 id="hero-title">Ideas que <span class="gradient">conectan.</span></h1>
+          <p class="hero-description">Nexus Collective reúne proyectos, herramientas y comunidades digitales con una misma intención: crear espacios propios, experimentar y conectar ideas que merecen llegar más lejos.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#ecosystem">Explorar el ecosistema <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="button button-secondary" href="https://coallition.nexuscollective.app/" target="_blank" rel="noopener noreferrer">Conocer la Coallition <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-meta" aria-label="Principios del colectivo">
+            <span><strong>01</strong> independencia</span><i class="meta-dot" aria-hidden="true"></i>
+            <span>creatividad</span><i class="meta-dot" aria-hidden="true"></i>
+            <span>comunidad</span>
+          </div>
+        </div>
+
+        <div class="visual-wrap" aria-hidden="true">
+          <div class="visual-glow"></div>
+          <div class="orbit"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+          <span class="orbit-node node-one"></span><span class="orbit-node node-two"></span><span class="orbit-node node-three"></span>
+          <div class="core-card">
+            <div class="core-inner">
+              <div class="core-symbol">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M9 46V17l23 29V17l23 29V17" stroke="url(#mark-gradient)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 53h46" stroke="#8ce5dc" stroke-width="2.5" stroke-linecap="round" opacity=".9"/><defs><linearGradient id="mark-gradient" x1="8" y1="17" x2="56" y2="47" gradientUnits="userSpaceOnUse"><stop stop-color="#c4b5fd"/><stop offset="1" stop-color="#8ce5dc"/></linearGradient></defs></svg>
+              </div>
+              <span class="core-label">NEXUS</span>
+              <span class="core-sub">Collective network</span>
+            </div>
+          </div>
+          <div class="floating-label float-chat"><svg viewBox="0 0 24 24" fill="none"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 11h8M8 14h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Comunicación</span></div>
+          <div class="floating-label float-community"><svg viewBox="0 0 24 24" fill="none"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20M10 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7ZM16 4.3a3.5 3.5 0 0 1 0 6.8M17 15h1a3 3 0 0 1 3 3v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Colaboración</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section" id="ecosystem" aria-labelledby="ecosystem-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">Explora Nexus</p>
+          <h2 id="ecosystem-title">Un ecosistema. Distintas formas de conectar.</h2>
+        </div>
+        <p class="section-description">Cada espacio tiene su propio propósito. Entra directamente al que te interese y descubre lo que estamos construyendo.</p>
+      </div>
+      <div class="destination-grid">
+        <a class="destination-card chat" href="https://chat.nexuscollective.app/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Nexus Chat">
+          <div class="card-top">
+            <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H6l-3 2v-6.5A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 10.5h8M8 14h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+            <span class="card-chip">Plataforma social</span>
+          </div>
+          <h3>Nexus Chat</h3>
+          <p>Un espacio digital para hablar, organizar comunidades y compartir experiencias. Conversaciones, mensajes y megagrupos en una plataforma propia.</p>
+          <span class="card-link">Abrir Nexus Chat <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="destination-card" href="https://coallition.nexuscollective.app/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Nexus Coallition">
+          <div class="card-top">
+            <span class="card-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="3" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="7" r="3" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="17" r="3" stroke="currentColor" stroke-width="1.6"/><path d="m9.5 9 1.2 5M14.5 9l-1.2 5M10 7h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+            <span class="card-chip">Red de proyectos</span>
+          </div>
+          <h3>Nexus Coallition</h3>
+          <p>Una red para descubrir y conectar proyectos independientes. Conoce a sus miembros y presenta tu propia iniciativa para formar parte de la coalición.</p>
+          <span class="card-link">Explorar la Coallition <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="shell section" id="about" aria-labelledby="about-title">
+      <div class="manifesto">
+        <div>
+          <p class="section-kicker">Nuestra filosofía</p>
+          <h2 id="about-title">Construir por cuenta propia. Llegar más lejos en compañía.</h2>
+          <p class="manifesto-lead">Nexus Collective es un entorno para desarrollar proyectos digitales con identidad propia y abrir oportunidades para que las personas y comunidades que los rodean puedan conectar.</p>
+        </div>
+        <div class="principles">
+          <div class="principle"><span class="principle-number">01</span><div><h3>Independencia</h3><p>Los proyectos conservan su identidad, sus decisiones y su dirección. Colaborar no significa perder autonomía.</p></div></div>
+          <div class="principle"><span class="principle-number">02</span><div><h3>Experimentación</h3><p>Probamos ideas, creamos herramientas y aprendemos construyendo, sin tener que encajar en una única categoría.</p></div></div>
+          <div class="principle"><span class="principle-number">03</span><div><h3>Comunidad</h3><p>Las mejores experiencias digitales se construyen pensando en las personas que las utilizan y les dan vida.</p></div></div>
+        </div>
+      </div>
+      <div class="join-panel" id="contact">
+        <div>
+          <p class="section-kicker">¿Tienes algo entre manos?</p>
+          <h2>Las buenas ideas merecen encontrar su comunidad.</h2>
+          <p>Descubre la Coallition y conoce cómo conectar tu proyecto con otros independientes.</p>
+        </div>
+        <a class="button button-primary" href="https://coallition.nexuscollective.app/" target="_blank" rel="noopener noreferrer">Conectar un proyecto <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-main">
+      <div class="footer-about">
+        <a class="brand" href="#top" aria-label="Nexus Collective, volver al inicio">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 17V7l8 10V7l8 10V7" stroke="#d9ceff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="#8ce5dc" stroke-width="1.5" stroke-linecap="round" opacity=".85"/></svg></span>
+          <span class="brand-name">NEXUS <span>COLLECTIVE</span></span>
+        </a>
+        <p>Un ecosistema independiente de proyectos, herramientas y comunidades digitales conectadas por una misma visión.</p>
+      </div>
+      <div class="footer-column">
+        <h3>Explorar</h3>
+        <div class="footer-links">
+          <a href="#ecosystem">Ecosistema</a>
+          <a href="#about">Quiénes somos</a>
+          <a href="#contact">Colaborar</a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Acceso directo</h3>
+        <div class="footer-links">
+          <a href="https://chat.nexuscollective.app/" target="_blank" rel="noopener noreferrer">Nexus Chat ↗</a>
+          <a href="https://coallition.nexuscollective.app/" target="_blank" rel="noopener noreferrer">Nexus Coallition ↗</a>
+        </div>
+      </div>
+    </div>
+    <div class="shell footer-bottom">
+      <span>© <span id="year"></span> <strong>Nexus Collective</strong>. Todos los derechos reservados.</span>
+      <span>Proyectos independientes. Conectados.</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mainNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    });
+
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Abrir menú');
+      });
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Abrir menú');
+      }
+    });
+  </script>
+</body>
+</html>
